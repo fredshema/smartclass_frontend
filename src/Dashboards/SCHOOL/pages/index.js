@@ -1,0 +1,9 @@
+export { default as Students } from "./students/students.vue";
+export { default as Teachers } from "./teachers/teachers.vue";
+export { default as Assignments } from "./assignments/assignments.vue";
+export { default as Notes } from "./notes/notes.vue";
+export { default as Books } from "./books/books.vue";
+export { default as Quiz } from "./quizes/quiz.vue";
+export { default as Quizes } from "./quizes/quizes.vue";
+export { default as Summaries } from "./summaries/summaries.vue";
+export { default as schoolProfile } from "./profile/profile.vue";

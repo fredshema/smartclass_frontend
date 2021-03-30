@@ -1,0 +1,54 @@
+[
+    {
+        "name": "history",
+        "challenges": 23
+    },
+    {
+        "name": "biology",
+        "challenges": 35
+    },
+    {
+        "name": "geography",
+        "challenges": 32
+    },
+    {
+        "name": "mathematics",
+        "challenges": 7
+    },
+    {
+        "name": "physics",
+        "challenges": 14
+    },
+    {
+        "name": "english",
+        "challenges": 2
+    },
+    {
+        "name": "ict",
+        "challenges": 5
+    },
+    {
+        "name": "kinyarwanda",
+        "challenges": 7
+    },
+    {
+        "name": "enterprenuership",
+        "challenges": 5
+    },
+    {
+        "name": "chemistry",
+        "challenges": 23
+    },
+    {
+        "name": "architecture",
+        "challenges": 16
+    },
+    {
+        "name": "gp",
+        "challenges": 10
+    },
+    {
+        "name": "kiswahili",
+        "challenges": 22
+    }
+]
