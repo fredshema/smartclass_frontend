@@ -7,7 +7,6 @@ import router from "../router/index";
 const axiosInstance = axios.create({
   baseURL: process.env.VUE_APP_API_ENDPOINT,
 });
-console.log(process.env.VUE_APP_API_ENDPOINT);
 
 axios.interceptors.request.use(
   (config) => {
