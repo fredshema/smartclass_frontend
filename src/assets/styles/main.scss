@@ -1,0 +1,85 @@
+@import "./variables";
+@import "./utilities";
+
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap-vue/src/index.scss";
+@import "sidebar-css.css";
+@import "../vendor/venobox.min.css";
+
+* {
+  outline: none;
+  letter-spacing: 0.5px;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  font-family: var(--font-family-sans-serif);
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  box-sizing: border-box;
+  min-width: 250px;
+  max-width: 1440px;
+  margin: auto;
+  line-height: 140%;
+}
+.display-5 {
+  font-size: 2.75rem;
+  font-weight: 300;
+}
+
+// component fade
+.component-fade-enter {
+  opacity: 0;
+}
+.component-fade-enter-active {
+  transition: opacity 0.5s ease;
+}
+.component-fade-leave {
+  display: none;
+}
+
+// group fade
+.group-fade-enter-active {
+  transition: opacity 0.3s ease;
+}
+.group-fade-enter {
+  opacity: 0;
+}
+.group-fade-leave {
+  display: none;
+}
+
+// tabs fade
+.tabs-fade-enter {
+  opacity: 0;
+  position: relative;
+  top: 0;
+}
+.tabs-fade-enter-active {
+  transition: all 500ms ease;
+  top: 30px;
+}
+.tabs-fade-leave {
+  display: none;
+}
+.slide-in-up-enter-active {
+  animation: slideInUp 0.5s;
+}
+.slide-in-up-leave-active {
+  animation: slideInUp 0.5s reverse;
+}
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
