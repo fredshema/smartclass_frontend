@@ -112,7 +112,7 @@ export default {
     },
     shownTabs() {
       if (this.user.status == "knownschool") return this.knownSchoolTabs;
-      return tabs;
+      return this.tabs;
     },
   },
   beforeMount() {
