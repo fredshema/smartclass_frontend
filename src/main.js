@@ -21,7 +21,8 @@ import {
   BIconX,
   BIconPlusSquare,
   BIconXCircle,
-  BIconTrashFill
+  BIconTrashFill,
+  BIconSearch
 } from "bootstrap-vue";
 import spinner from "./components/spinner.vue";
 import vueSmoothScroll from "vue-smooth-scroll";
@@ -35,6 +36,7 @@ import LoadingButton from "./components/custom-button/loading-button.vue"
 
 Vue.component("BIconBell", BIconBell);
 Vue.component("BIconX", BIconX);
+Vue.component("BIconSearch", BIconSearch);
 Vue.component("BIconTrashFill", BIconTrashFill);
 Vue.component("BIconXCircle", BIconXCircle);
 Vue.component("BIconPlusSquare", BIconPlusSquare);

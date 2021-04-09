@@ -111,8 +111,9 @@ export default {
       return this.$store.state.student.studentData;
     },
     shownTabs() {
-      if (this.user.status == "knownschool") return this.knownSchoolTabs;
-      return this.tabs;
+      return this.user.status == "knownschool"
+        ? this.knownSchoolTabs
+        : this.tabs;
     },
   },
   beforeMount() {

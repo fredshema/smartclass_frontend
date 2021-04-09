@@ -60,6 +60,11 @@ export default {
           title: "quizes",
           icon: "fa fa-file-word",
         },
+        {
+          href: { path: "/school/messaging" },
+          title: "Messaging",
+          icon: "fa fa-envelope",
+        },
       ],
     };
   },

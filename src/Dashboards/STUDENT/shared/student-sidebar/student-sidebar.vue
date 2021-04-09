@@ -11,6 +11,16 @@
           <span> Courses </span>
         </li>
       </router-link>
+      <router-link
+        to="/student/chatrooms"
+        exact-active-class="active"
+        class="navs"
+      >
+        <li>
+          <b-icon-chat-left-dots scale="1.4" />
+          <span> Chatroom </span>
+        </li>
+      </router-link>
 
       <!-- <router-link
         to="/student/quizes"

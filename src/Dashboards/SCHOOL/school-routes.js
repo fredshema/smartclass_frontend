@@ -10,6 +10,8 @@ import {
   Notes,
   Books,
   Summaries,
+  Chatroom,
+  Messaging
 } from "./pages";
 
 const routes = [
@@ -39,6 +41,18 @@ const routes = [
         path: "assignments",
         name: "school-assignments",
         component: Assignments,
+        meta: { requireAuth: true },
+      },
+      {
+        path: "messaging",
+        name: "school-messaging",
+        component: Messaging,
+        meta: { requireAuth: true },
+      },
+      {
+        path: "chatroom",
+        name: "school-chatrooms",
+        component: Chatroom,
         meta: { requireAuth: true },
       },
       {

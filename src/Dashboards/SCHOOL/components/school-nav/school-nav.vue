@@ -21,7 +21,12 @@
         </template>
         <b-dropdown-text v-if="user">{{ username }}</b-dropdown-text>
         <b-dd-divider v-if="user" />
-        <b-dropdown-item :to="{name:'school-profile'}">Profile</b-dropdown-item>
+         <b-dropdown-item link-class="py-2" active-class="bg-primary text-light" :to="{ name: 'school-chatrooms' }">
+            Chatroom
+          </b-dropdown-item>
+         <b-dropdown-item link-class="py-2" active-class="bg-primary text-light" :to="{ name: 'school-profile' }">
+            Profile
+          </b-dropdown-item>
         <b-dd-divider />
         <b-dropdown-item to="/logout" link-class="text-danger">
           Logout

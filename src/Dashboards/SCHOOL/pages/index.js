@@ -7,3 +7,5 @@ export { default as Quiz } from "./quizes/quiz.vue";
 export { default as Quizes } from "./quizes/quizes.vue";
 export { default as Summaries } from "./summaries/summaries.vue";
 export { default as schoolProfile } from "./profile/profile.vue";
+export { default as Chatroom } from "./chatrooms/chatroom.vue";
+export { default as Messaging } from "./messaging/messaging.vue";

@@ -85,6 +85,8 @@ export default {
   flex: 1 1 0%;
   overflow: auto;
   min-width: 200px;
+  display: flex;
+  flex-direction: column;
 }
 #student-screen {
   // min-height: 100vh;
