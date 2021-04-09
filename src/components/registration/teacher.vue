@@ -66,7 +66,7 @@
         <BookIcon />
       </b-input-group>
     </b-form-group>
-    <!-- <b-form-group>
+    <b-form-group>
       <b-form-file
         class="file-selector"
         placeholder="Choose your resume or drop it here..."
@@ -75,7 +75,7 @@
         v-model="file"
         required
       ></b-form-file>
-    </b-form-group> -->
+    </b-form-group>
     <b-form-group :class="{ 'form-group--error': $v.password.$error }">
       <b-input-group>
         <b-input
@@ -195,26 +195,27 @@ export default {
   methods: {
     register() {
       if (!this.acceptTC) return;
-      // let reqData = new FormData();
-      // // reqData.append("file", this.file);
-      // reqData.append("username", this.username);
-      // reqData.append("phone", this.phone);
-      // reqData.append("type", "teacher");
-      // reqData.append("email", this.email);
-      // reqData.append("gender", this.gender);
-      // reqData.append("subject", this.subject);
-      // reqData.append("password", this.password);
+      let reqData = new FormData();
+      // reqData.append("file", this.file);
+      reqData.append("action", "adduserTeacher");
+      reqData.append("username", this.username);
+      reqData.append("phone", this.phone);
+      reqData.append("type", "teacher");
+      reqData.append("email", this.email);
+      reqData.append("gender", this.gender);
+      reqData.append("subject", this.subject);
+      reqData.append("password", this.password);
 
-      const reqData = {
-        action: this.action,
-        username: this.username,
-        type: "teacher",
-        email: this.email,
-        password: this.repeatPassword,
-        gender: this.gender,
-        phone: this.phone,
-        subject: this.subject,
-      };
+      // const reqData = {
+      //   action: this.action,
+      //   username: this.username,
+      //   type: "teacher",
+      //   email: this.email,
+      //   password: this.repeatPassword,
+      //   gender: this.gender,
+      //   phone: this.phone,
+      //   subject: this.subject,
+      // };
 
       this.load(true);
       this.axios
@@ -228,7 +229,7 @@ export default {
               message: res.data.message,
               status: "success",
             });
-            this.$router.push("/login");
+            this.$router.replace("/login");
           } else {
             this.$notify({
               title: "ERROR",

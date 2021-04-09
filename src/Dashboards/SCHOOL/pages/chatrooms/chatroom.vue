@@ -28,7 +28,7 @@
             <b-button
               variant="dark"
               class="ml-1"
-              @click="fetchMessages"
+              @click="refresh"
               :disabled="state.loadingMessages"
             >
               <b-spinner small variant="light" v-if="state.loadingMessages" />
@@ -53,8 +53,10 @@ export default {
     return {
       state: { loadingMessages: false, loadingLevels: false },
       levels: [],
-      level: "10",
+      level: "",
       messages: [],
+      totalPages: null,
+      currentPage: 1,
     };
   },
   computed: {
@@ -67,24 +69,36 @@ export default {
       return this.$store.state.school.data;
     },
   },
+  watch: {
+    level() {
+      this.fetchMessages();
+    },
+  },
   beforeMount() {
     this.$title("chatroom");
-    this.fetchMessages();
     this.fetchLevels();
   },
   methods: {
     async fetchMessages() {
+      if (!this.level) return;
+      if (this.totalPages === null && this.currentPage != 1) return;
       this.state.loadingMessages = true;
-      const reqData = { action: "getMessage", level: this.level, page: "1" };
+      const reqData = {
+        action: "getMessage",
+        level: this.level.id,
+        page: this.currentPage,
+      };
       const { data } = await this.axios.post("chat", reqData);
+      console.log(data);
+
+      this.$set(this, "totalPages", data.number_of_page);
       const messageFormatter = (message) => {
         if (message.sentBy == this.user.userame) message.mine = true;
         else message.mine = false;
         return message;
       };
       this.state.loadingMessages = false;
-      console.log(data, this.user);
-      this.messages = data.data.map(messageFormatter);
+      // this.messages = data.data.map(messageFormatter);
     },
     async sendMessage(message) {
       this.messages.push({
@@ -116,11 +130,14 @@ export default {
       try {
         const { data } = await this.axios.post("getElements", reqData);
         this.levels = data;
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
       this.state.loadingLevels = false;
+    },
+    refresh() {
+      this.fetchLevels();
+      this.fetchMessages();
     },
   },
 };

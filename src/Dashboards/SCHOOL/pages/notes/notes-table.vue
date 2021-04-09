@@ -51,7 +51,7 @@
                 <p class="small m-0">{{ data.item.title }}</p>
               </template>
               <iframe
-                :src="`https://docs.google.com/gview?url=https://smartclass.rw/${data.value}&embedded=true`"
+                :src="`https://docs.google.com/gview?url=${data.value}&embedded=true`"
                 frameborder="0"
                 width="100%"
                 height="100%"

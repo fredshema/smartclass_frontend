@@ -163,8 +163,7 @@ export default {
     },
     profilePicture() {
       const { profile } = this.profile;
-      if (profile && this.isImage(profile))
-        return "https://smartclass.rw/" + profile;
+      if (profile && this.isImage(profile)) return profile;
       return "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
     },
   },
