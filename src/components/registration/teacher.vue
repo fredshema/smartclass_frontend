@@ -57,13 +57,30 @@
           </template>
           <b-select-option
             v-for="(course, i) in availableSubjects || []"
-            :value="course.id"
+            :value="course"
             :key="i"
           >
             {{ course.name }}
           </b-select-option>
         </b-select>
         <BookIcon />
+      </b-input-group>
+    </b-form-group>
+    <b-form-group>
+      <b-input-group>
+        <b-select v-model="school" required :disabled="!availableSchools">
+          <template #first>
+            <b-select-option value="" disabled>School</b-select-option>
+            <b-select-option
+              :value="school"
+              v-for="school in availableSchools"
+              :key="school.id"
+            >
+              {{ school.name }}
+            </b-select-option>
+          </template>
+        </b-select>
+        <SchoolIcon />
       </b-input-group>
     </b-form-group>
     <b-form-group>
@@ -151,6 +168,7 @@ import PhoneIcon from "../../assets/img/icons/PhoneIcon.vue";
 import GenderIcon from "../../assets/img/icons/GenderIcon.vue";
 import CaseIcon from "../../assets/img/icons/case-icon.vue";
 import BookIcon from "../../assets/img/icons/BookIcon.vue";
+import SchoolIcon from "../../assets/img/icons/SchoolIcon.vue";
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 export default {
   name: "teacher-registration-component",
@@ -161,11 +179,12 @@ export default {
     PhoneIcon,
     GenderIcon,
     CaseIcon,
+    SchoolIcon,
     BookIcon,
   },
   data() {
     return {
-      state: { loading: false },
+      state: { loading: false, loadingSchools: false },
       gender: "",
       acceptTC: false,
       username: null,
@@ -178,10 +197,13 @@ export default {
       subject: "",
       action: "adduserTeacher",
       availableSubjects: null,
+      availableSchools: [],
+      school: "",
     };
   },
   beforeMount() {
     this.fetchCourses();
+    this.fetchSchools();
   },
   validations: {
     password: {
@@ -196,30 +218,32 @@ export default {
     register() {
       if (!this.acceptTC) return;
       let reqData = new FormData();
-      // reqData.append("file", this.file);
-      reqData.append("action", "adduserTeacher");
+      reqData.append("file", this.file);
       reqData.append("username", this.username);
       reqData.append("phone", this.phone);
       reqData.append("type", "teacher");
       reqData.append("email", this.email);
       reqData.append("gender", this.gender);
-      reqData.append("subject", this.subject);
+      reqData.append("school", this.school.id);
+      reqData.append("subject", this.subject.id);
       reqData.append("password", this.password);
 
-      // const reqData = {
-      //   action: this.action,
-      //   username: this.username,
-      //   type: "teacher",
-      //   email: this.email,
-      //   password: this.repeatPassword,
-      //   gender: this.gender,
-      //   phone: this.phone,
-      //   subject: this.subject,
-      // };
+      const a = {
+        action: this.action,
+        username: this.username,
+        type: "teacher",
+        email: this.email,
+        password: this.repeatPassword,
+        gender: this.gender,
+        phone: this.phone,
+        subject: this.subject.id,
+        school: this.school.id,
+      };
+      console.log(a);
 
       this.load(true);
       this.axios
-        .post("signup", reqData)
+        .post("signupTeacher", reqData)
         .then((res) => {
           console.log(res);
           this.load(false);
@@ -263,6 +287,15 @@ export default {
     },
     load(param) {
       this.$set(this.state, "loading", param || false);
+    },
+    async fetchSchools() {
+      this.state.loadingSchools = true;
+      const { data } = await this.axios.post("schoolAdminS", {
+        action: "getSchools",
+      });
+      console.log(data);
+      this.availableSchools = [{ name: "None", id: "" }, ...data];
+      this.state.loadingSchools = false;
     },
   },
 };
