@@ -75,10 +75,10 @@ export default {
   methods: {
     async fetchAssignments() {
       this.state.loadingAssignments = true;
-      const reqData = { action: "schoolAssignments", school: this.schoolID };
+      const reqData = { action: "getAssignmentAd", school: this.schoolID };
       this.$set(this, "allAssignments", []);
       try {
-        const { data } = await this.axios.post("schoolItems", reqData);
+        const { data } = await this.axios.post("getSchoolItems", reqData);
         this.state.loadingAssignments = false;
         console.log(data);
         this.allAssignments = data;
@@ -91,7 +91,7 @@ export default {
     updateAssignmentData(params) {
       const { data, done } = params;
       const searchedItem = this.allAssignments.filter(
-        (item) => item.id == data.id
+        (item) => item.AssignmentId == data.AssignmentId
       );
       this.$set(
         this.allAssignments,

@@ -64,22 +64,25 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.teacher.data;
+      return this.$store.state.student.studentData;
     },
     title() {
       return this.assignment.title;
     },
   },
-  mounted() {},
+  mounted() {
+    console.log(this.user, this.classID, this.assignment, this.title);
+  },
   methods: {
     async submitAssignment() {
       this.state.submittingAssignment = true;
       let reqData = new FormData();
       reqData.append("title", this.title);
-      reqData.append("subject", this.user.classID);
+      reqData.append("subject", this.classID);
       reqData.append("level", this.user.level);
       reqData.append("userId", this.user.user_id);
       reqData.append("file", this.file);
+      console.log(this.user, this.classID, this.assignment, this.title);
       try {
         const { data } = await this.axios.post("submitAssign", reqData);
         console.log(data);
@@ -95,7 +98,9 @@ export default {
         } else {
           this.$notify({
             title: "ERROR!",
-            message: data.message || "Something went wrong while submitting your assignment.",
+            message:
+              data.message ||
+              "Something went wrong while submitting your assignment.",
             status: "danger",
           });
         }

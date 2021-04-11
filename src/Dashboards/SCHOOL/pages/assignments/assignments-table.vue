@@ -23,7 +23,7 @@
               size="sm"
               variant="dark"
               class="px-2 mx-1"
-              v-b-modal="'assignment-' + data.item.id"
+              v-b-modal="'assignment-' + data.item.AssignmentId"
             >
               Preview
             </b-button>
@@ -35,7 +35,7 @@
               ><b-icon-trash-fill
             /></b-button>
             <b-modal
-              :id="'assignment-' + data.item.id"
+              :id="'assignment-' + data.item.AssignmentId"
               no-close-on-backdrop
               no-close-on-esc
               no-stacking
@@ -131,7 +131,7 @@ export default {
             this.$bvToast.show("delete-assignment-toast");
             const reqData = {
               action: "deleteAssignments",
-              AssignmentId: item.id,
+              AssignmentId: item.AssignmentId,
             };
             try {
               const { data } = await this.axios.post("deleteElements", reqData);

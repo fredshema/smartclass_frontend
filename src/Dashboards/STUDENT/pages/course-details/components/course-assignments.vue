@@ -26,7 +26,7 @@
             size="sm"
             variant="dark"
             class="px-3 mx-1"
-            v-b-modal="'assignment-' + i"
+            v-b-modal="'read-assignment-' + i"
           >
             Read
           </b-button>
@@ -41,7 +41,7 @@
           </b-button>
         </b-col>
          <b-modal
-          :id="'assignment-' + i"
+          :id="'read-assignment-' + i"
           no-close-on-backdrop
           no-close-on-esc
           no-stacking
