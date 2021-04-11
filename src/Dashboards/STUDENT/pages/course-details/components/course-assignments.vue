@@ -25,13 +25,47 @@
           <b-button
             size="sm"
             variant="dark"
+            class="px-3 mx-1"
             v-b-modal="'assignment-' + i"
-            class="px-3"
+          >
+            Read
+          </b-button>
+          <b-button
+            size="sm"
+            variant="dark"
+            v-b-modal="'assignment-' + i"
+            class="px-3 ml-1"
             @click="submitAssignment(assignment)"
           >
             Submit
           </b-button>
         </b-col>
+         <b-modal
+          :id="'assignment-' + i"
+          no-close-on-backdrop
+          no-close-on-esc
+          no-stacking
+          hide-footer
+          size="xl"
+          header-bg-variant="dark"
+          header-text-variant="light"
+          body-bg-variant="light"
+          body-class="p-0"
+          centered
+          lazy
+        >
+          <template #modal-title>
+            <p class="small m-0">{{ assignment.title }}</p>
+          </template>
+          <iframe
+            :src="`https://docs.google.com/gview?url=${assignment.file}&embedded=true`"
+            frameborder="0"
+            width="100%"
+            height="100%"
+            style="min-height: 80vh"
+          >
+          </iframe>
+        </b-modal>
       </b-list-group-item>
     </b-list-group>
     <b-row no-gutters align-h="center" class="py-5" v-else>
