@@ -73,7 +73,7 @@ export default {
       this.state.loading = true;
       const reqData = {
         action: "getAssignment",
-        subjectName: this.user.subjectName,
+        subjectName: this.classID,
         userId: this.user.user_id,
         userType: "student",
         level: this.user.level,

@@ -19,11 +19,41 @@
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto align-items-lg-center" align="center" fill>
-        <b-nav-item class="px-2" exact-active-class="text-primary">
-          <b-button class="py-2 text-dark" variant="link">
-            <b-icon-bell scale="1.23" />
-          </b-button>
-        </b-nav-item>
+        <b-nav-item-dropdown
+          no-caret
+          class="px-2"
+          toggle-class="text-decoration-none"
+          exact-active-class="text-primary"
+          menu-class="py-0"
+          right
+        >
+          <template #button-content>
+            <b-button class="py-2 text-dark" variant="link">
+              <b-icon-bell scale="1.23" />
+            </b-button>
+          </template>
+          <b-dropdown-text class="text-right mb-3 small">
+            Refresh
+          </b-dropdown-text>
+          <div v-if="notificationsAvailable">
+            <div v-for="i in 4" :key="i">
+              <b-dropdown-item-button
+                v-if="notifications[i]"
+                class="py-0"
+                button-class="py-3"
+              >
+                {{ notifications[i].message }}
+              </b-dropdown-item-button>
+              <hr class="dropdown-devider m-0" />
+            </div>
+          </div>
+          <div v-else>
+            <b-dropdown-text class="text-center py-4">
+              No available notifications at the moment!
+            </b-dropdown-text>
+          </div>
+        </b-nav-item-dropdown>
+
         <b-nav-item-dropdown no-caret right>
           <template #button-content>
             <b-button
@@ -36,7 +66,9 @@
           </template>
           <b-dropdown-text v-if="user">{{ user.userame }}</b-dropdown-text>
           <b-dd-divider />
-          <b-dropdown-item :to="{name:'student-profile'}">Profile</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'student-profile' }"
+            >Profile</b-dropdown-item
+          >
           <b-dd-divider />
           <b-dropdown-item to="/logout" link-class="text-danger">
             Logout
@@ -55,10 +87,19 @@ export default {
       type: Boolean,
       default: true,
     },
+    notifications: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     user() {
       return this.$store.state.student.studentData;
+    },
+    notificationsAvailable() {
+      if (!Array.isArray(this.notifications)) return false;
+      if (this.notifications.length < 1) return false;
+      return true;
     },
   },
   data() {

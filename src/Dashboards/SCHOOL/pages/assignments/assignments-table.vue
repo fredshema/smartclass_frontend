@@ -105,6 +105,7 @@ export default {
   },
   computed: {
     shownData() {
+      if(!Array.isArray(this.assignmentsData)) return []
       return this.assignmentsData;
     },
   },
