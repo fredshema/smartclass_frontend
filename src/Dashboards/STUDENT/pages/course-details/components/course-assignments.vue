@@ -62,7 +62,7 @@ export default {
       return this.$store.state.student.studentData;
     },
     classID() {
-      return this.$route.params.classID;
+      return this.$route.params.courseID;
     },
   },
   beforeMount() {
@@ -78,6 +78,7 @@ export default {
         userType: "student",
         level: this.user.level,
       };
+      console.log(reqData)
 
       this.axios
         .post("getSchoolItems", reqData)
