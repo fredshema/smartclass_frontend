@@ -20,7 +20,10 @@
         v-for="(submittedAssignment, i) in submittedAssignments"
         :key="i"
       >
-        <b-col class="book"> {{ submittedAssignment.title }} </b-col>
+        <b-col class="book h5">
+          <h5 class="mb-1 text-capitalize">{{ submittedAssignment.title }}</h5>
+          <small>{{ submittedAssignment["submitted by"] }}</small>
+        </b-col>
         <b-col cols="auto">
           <b-button
             size="sm"
@@ -46,7 +49,10 @@
           lazy
         >
           <template #modal-title>
-            <p class="small m-0">{{ submittedAssignment.title }}</p>
+            <h5 class="mb-1 text-capitalize">
+              {{ submittedAssignment.title }}
+            </h5>
+            <small>{{ submittedAssignment["submitted by"] }}</small>
           </template>
           <iframe
             :src="`https://docs.google.com/gview?url=${submittedAssignment.file}&embedded=true`"

@@ -19,6 +19,7 @@
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto align-items-lg-center" align="center" fill>
+        <!-- notifications -->
         <b-nav-item-dropdown
           no-caret
           class="px-2"
@@ -32,27 +33,42 @@
               <b-icon-bell scale="1.23" />
             </b-button>
           </template>
-          <b-dropdown-text class="text-right mb-3 small">
-            Refresh
-          </b-dropdown-text>
-          <div v-if="notificationsAvailable">
+          <div
+            class="p-5 d-flex align-items-center justify-content-center"
+            style="min-width: 300px; min-height: 150px"
+            v-if="state.loadingNotif"
+          >
+            <b-spinner></b-spinner>
+          </div>
+          <div
+            v-else-if="notificationsAvailable"
+            style="min-width: 300px; min-height: 150px"
+          >
             <div v-for="i in 4" :key="i">
-              <b-dropdown-item-button
+              <b-dropdown-item
                 v-if="notifications[i]"
                 class="py-0"
-                button-class="py-3"
+                link-class="py-3"
               >
                 {{ notifications[i].message }}
-              </b-dropdown-item-button>
+              </b-dropdown-item>
               <hr class="dropdown-devider m-0" />
             </div>
           </div>
-          <div v-else>
-            <b-dropdown-text class="text-center py-4">
+          <div v-else class="py-4" style="min-width: 300px">
+            <b-dropdown-text class="text-center py-1">
               No available notifications at the moment!
             </b-dropdown-text>
           </div>
+          <b-dropdown-text
+            class="text-center bg-primary text-light cursor-pointer"
+            @click.stop.prevent="fetchNotifications"
+            v-if="!state.loadingNotif"
+          >
+            Refresh
+          </b-dropdown-text>
         </b-nav-item-dropdown>
+        <!-- end of notifications -->
 
         <b-nav-item-dropdown no-caret right>
           <template #button-content>
@@ -87,10 +103,12 @@ export default {
       type: Boolean,
       default: true,
     },
-    notifications: {
-      type: Array,
-      default: () => [],
-    },
+  },
+  data() {
+    return {
+      state: { loadingNotif: false },
+      notifications: [],
+    };
   },
   computed: {
     user() {
@@ -102,8 +120,27 @@ export default {
       return true;
     },
   },
-  data() {
-    return {};
+  beforeMount() {
+    this.fetchNotifications();
+  },
+  methods: {
+    async fetchNotifications() {
+      this.state.loadingNotif = true;
+      const reqData = {
+        action: "Notifications",
+        userId: this.user.user_id,
+      };
+
+      try {
+        const { data } = await this.axios.post("notification", reqData);
+        console.log(data);
+        if (Array.isArray(data)) this.$set(this, "notifications", data);
+        this.state.loadingNotif = false;
+      } catch (error) {
+        console.log(error);
+        this.state.loadingNotif = false;
+      }
+    },
   },
 };
 </script>

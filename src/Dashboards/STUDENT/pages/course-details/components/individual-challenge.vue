@@ -5,6 +5,7 @@
         <h6 class="mb-0" v-b-toggle:[collapseID]>
           {{ challenge.title }}
         </h6>
+        <small>Posted by: {{ challenge.createdBy || "--" }}</small>
       </b-col>
       <b-col cols="auto">
         <b-button
@@ -20,7 +21,7 @@
       <div class="border-top mb-4 mt-3"></div>
       <b-row no-gutters class="flex-column mb-3 pt-2">
         <h5>Question:</h5>
-        <p v-html="challenge.content" />
+        <p class="question-holder" v-html="challenge.content" />
       </b-row>
       <b-form class="mb-4">
         <h5 class="font-weight-normal">Answer:</h5>
@@ -102,7 +103,9 @@
         </b-list-group>
       </b-collapse>
       <b-row no-gutters align-h="end" class="mt-3">
-        <b-button variant="dark" class="px-3" v-b-toggle:[collapseID]>close</b-button>
+        <b-button variant="dark" class="px-3" v-b-toggle:[collapseID]
+          >close</b-button
+        >
       </b-row>
     </b-collapse>
   </b-col>

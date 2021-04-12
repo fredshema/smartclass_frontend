@@ -81,16 +81,6 @@ export default {
           sortable: true,
         },
         {
-          key: "subject",
-          label: "Subject",
-          sortable: true,
-        },
-        {
-          key: "Date",
-          label: "Date",
-          sortable: true,
-        },
-        {
           key: "file",
           label: "Assignments",
           sortable: false,

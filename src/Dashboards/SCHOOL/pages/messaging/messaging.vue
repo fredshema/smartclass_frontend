@@ -28,10 +28,10 @@
             <b-button
               variant="dark"
               class="ml-1"
-              @click="fetchMessages"
-              :disabled="state.loadingMessages"
+              @click="fetchLevels"
+              :disabled="state.loadingLevels"
             >
-              <b-spinner small variant="light" v-if="state.loadingMessages" />
+              <b-spinner small variant="light" v-if="state.loadingLevels" />
               <div v-else>Refresh</div>
             </b-button>
           </b-form-group>
@@ -40,9 +40,11 @@
       <b-col cols="auto" class="px-3 d-flex align-items-center">
         <b-button
           v-b-modal="'school-messaging-recipients-modal'"
+          variant="dark"
           :disabled="!studentsAvailable"
         >
-          Select Recipients
+          <b-spinner small variant="light" v-if="state.loadingStudents" />
+          <div v-else>Select Recipients</div>
         </b-button>
       </b-col>
     </b-row>
@@ -109,7 +111,7 @@ export default {
         allSelected: false,
       },
       levels: [],
-      level: "10",
+      level: "",
       messages: [],
       allStudents: [],
       selectedNumbers: [],
@@ -131,27 +133,16 @@ export default {
       return this.$store.state.school.data;
     },
   },
+  watch: {
+    level() {
+      this.fetchStudents();
+    },
+  },
   beforeMount() {
-    this.$title("chatroom");
-    this.fetchMessages();
+    this.$title("Messaging");
     this.fetchLevels();
-    this.fetchStudents();
-    console.log(this.user);
   },
   methods: {
-    async fetchMessages() {
-      this.state.loadingMessages = true;
-      const reqData = { action: "getMessage", level: this.level, page: "1" };
-      const { data } = await this.axios.post("chat", reqData);
-      const messageFormatter = (message) => {
-        if (message.sentBy == this.user.userame) message.mine = true;
-        else message.mine = false;
-        return message;
-      };
-      this.state.loadingMessages = false;
-      console.log(data, this.user);
-      this.messages = data.data.map(messageFormatter);
-    },
     async sendMessage(message) {
       if (this.selectedNumbers.length < 1) {
         this.$notify({
@@ -197,19 +188,21 @@ export default {
       this.state.loadingStudents = true;
       const reqData = {
         action: "getStudents",
-        school: "19",
-        level: "8",
+        school: this.user.school,
+        level: this.level.id || this.levels[0].id,
       };
       try {
         const { data } = await this.axios.post("messaging", reqData);
-        const seen = new Set();
-        const filteredData = data.filter((el) => {
-          const duplicate = seen.has(el.phone);
-          seen.add(el.phone);
-          return !duplicate;
-        });
-        console.log(filteredData);
-        this.$set(this, "allStudents", filteredData);
+        if (Array.isArray(data)) {
+          const seen = new Set();
+          const filteredData = data.filter((el) => {
+            const duplicate = seen.has(el.phone);
+            seen.add(el.phone);
+            return !duplicate;
+          });
+          this.$set(this, "allStudents", filteredData);
+        }
+        console.log(data);
         this.state.loadingStudents = false;
       } catch (error) {
         this.state.loadingStudents = false;
@@ -224,7 +217,10 @@ export default {
       const reqData = { action: "getLevels" };
       try {
         const { data } = await this.axios.post("getElements", reqData);
-        this.levels = data;
+        if (Array.isArray(data)) {
+          this.levels = data;
+          this.level = data[0];
+        }
         console.log(data);
       } catch (error) {
         console.log(error);
