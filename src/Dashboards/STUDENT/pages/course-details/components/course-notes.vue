@@ -79,7 +79,7 @@ export default {
       return this.$store.state.student.studentData;
     },
     classID() {
-      return this.$route.params.classID;
+      return this.$route.params.courseID;
     },
   },
   beforeMount() {

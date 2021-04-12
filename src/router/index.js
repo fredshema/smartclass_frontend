@@ -19,6 +19,7 @@ import studentRoutes from "../Dashboards/STUDENT/student-routes";
 import teacherRoutes from "../Dashboards/TEACHER/teacher-routes";
 import adminRoutes from "../Dashboards/ADMIN/admin-routes";
 import schoolRoutes from "../Dashboards/SCHOOL/school-routes";
+import mentorRoutes from "../Dashboards/MENTOR/mentor-routes";
 
 Vue.use(VueRouter);
 
@@ -87,6 +88,7 @@ const routes = [
   ...teacherRoutes,
   ...adminRoutes,
   ...schoolRoutes,
+  ...mentorRoutes,
 ];
 
 const router = new VueRouter({

@@ -109,6 +109,22 @@
 .table th {
   vertical-align: middle !important;
 }
-.b-dropdown-text{
-  font-weight: unset !important
+.b-dropdown-text {
+  font-weight: unset !important;
+}
+
+.has-loading {
+  position: relative;
+
+  .container-fluid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: inherit;
+    color: inherit;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

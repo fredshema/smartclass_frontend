@@ -65,7 +65,7 @@ export default {
       return this.$parent.selectedUnit;
     },
     classID() {
-      return this.$route.params.classID;
+      return this.$route.params.courseID;
     },
   },
   watch: {

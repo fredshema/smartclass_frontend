@@ -5,6 +5,7 @@ import student from "../Dashboards/STUDENT/student-state";
 import teacher from "../Dashboards/TEACHER/teacher-state";
 import admin from "../Dashboards/ADMIN/admin-state";
 import school from "../Dashboards/SCHOOL/school-state";
+import mentor from "../Dashboards/MENTOR/mentor-state";
 
 Vue.use(Vuex);
 
@@ -17,7 +18,7 @@ export default new Vuex.Store({
       state.cancelTokens.push(token);
     },
     CLEAR_CANCEL_TOKENS(state) {
-      if(state.cancelTokens.length < 1) return;
+      if (state.cancelTokens.length < 1) return;
       state.cancelTokens = [];
     },
   },
@@ -42,6 +43,7 @@ export default new Vuex.Store({
     student,
     teacher,
     admin,
-    school
+    school,
+    mentor,
   },
 });

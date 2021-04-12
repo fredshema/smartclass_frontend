@@ -67,6 +67,7 @@ export default {
     user() {
       return this.$store.state.student.studentData;
     },
+
   },
   mounted() {},
   methods: {
@@ -75,11 +76,13 @@ export default {
       let reqData = new FormData();
       reqData.append("title", this.title);
       reqData.append("challenge", this.challenge);
-      reqData.append("subjectId", this.user.subject);
-      reqData.append("level", this.classID);
+      reqData.append("subjectId", this.classID);
+      reqData.append("level", this.user.level);
       reqData.append("userId", this.user.user_id);
       reqData.append("type", this.user.user_type);
       reqData.append("file", this.file);
+      console.log(this.user, this.classID);
+
       try {
         const { data } = await this.axios.post("AddChallanges", reqData);
         console.log(data);

@@ -1,6 +1,10 @@
 <template>
   <section class="w-100">
-    <b-row no-gutters></b-row>
+    <b-row no-gutters align-h="end" class="mb-3">
+      <b-button variant="dark" class="ml-1" @click="fetchQuizes">
+        Refresh
+      </b-button>
+    </b-row>
     <b-row
       no-gutters
       v-if="state.loading"
@@ -53,6 +57,7 @@ export default {
         userId: this.userID,
         userType: "student",
       };
+      console.log(reqData);
       this.axios
         .post("quiz", reqData)
         .then((res) => {
